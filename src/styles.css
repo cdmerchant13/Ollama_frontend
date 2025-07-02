@@ -53,3 +53,22 @@ body {
     background-color: #6c757d;
     border-color: #6c757d;
 }
+
+.dark-mode {
+    background-color: #21252b;
+    color: #fff;
+}
+
+.dark-mode .form-control {
+    background-color: #3a3f47;
+    border-color: #6c757d;
+    color: #fff;
+}
+
+.dark-mode .message-bubble.model-message {
+    background-color: #3a3f47;
+}
+
+.dark-mode #chat-history {
+    background-color: #282c34;
+}

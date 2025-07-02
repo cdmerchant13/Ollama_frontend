@@ -71,6 +71,7 @@ ipcMain.handle('send-message', async (event, { model, message }) => {
       model: model,
       messages: [{ role: 'user', content: message }],
     });
+    console.log('Ollama API Response:', response);
     return response.message.content;
   } catch (error) {
     console.error('Error sending message:', error);

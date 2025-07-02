@@ -1,3 +1,5 @@
+const showdown = require('showdown');
+
 document.addEventListener('DOMContentLoaded', () => {
     const ollamaUrlInput = document.getElementById('ollama-url');
     const modelSelect = document.getElementById('model-select');
@@ -6,6 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatHistory = document.getElementById('chat-history');
     const messageInput = document.getElementById('message-input');
     const sendBtn = document.getElementById('send-btn');
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const converter = new showdown.Converter();
+
+    darkModeToggle.addEventListener('change', () => {
+        document.body.classList.toggle('dark-mode');
+    });
 
     connectBtn.addEventListener('click', async () => {
         const url = ollamaUrlInput.value;
@@ -33,7 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
             appendMessage('You', message);
             messageInput.value = '';
 
+            showIdleAnimation();
+
             const response = await window.electronAPI.sendMessage({ model: selectedModel, message });
+
+            hideIdleAnimation();
+
             if (response.error) {
                 alert(response.error);
             } else {
@@ -47,11 +60,29 @@ document.addEventListener('DOMContentLoaded', () => {
         messageElement.classList.add('message-bubble');
         if (sender === 'You') {
             messageElement.classList.add('user-message');
+            messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
         } else {
             messageElement.classList.add('model-message');
+            const htmlContent = converter.makeHtml(message);
+            messageElement.innerHTML = `<strong>${sender}:</strong> ${htmlContent}`;
         }
-        messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
         chatHistory.appendChild(messageElement);
         chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    function showIdleAnimation() {
+        const idleElement = document.createElement('div');
+        idleElement.id = 'idle-animation';
+        idleElement.classList.add('message-bubble', 'model-message');
+        idleElement.innerHTML = '<div class="spinner-border spinner-border-sm" role="status"><span class="sr-only">Loading...</span></div>';
+        chatHistory.appendChild(idleElement);
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    function hideIdleAnimation() {
+        const idleElement = document.getElementById('idle-animation');
+        if (idleElement) {
+            idleElement.remove();
+        }
     }
 });
