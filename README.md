@@ -2,11 +2,9 @@
 
 Ollama Chat is a desktop application for macOS that provides a user-friendly interface for interacting with your local or remote Ollama instances. It allows you to easily connect to an Ollama server, select a model, and have conversations in a clean, modern chat interface.
 
-![Ollama Chat Screenshot](screenshot.png) <!--- Placeholder for a screenshot -->
-
 ## How It Works
 
-The application is built using Electron, which allows for the creation of desktop applications with web technologies. It is architected to be secure and efficient:
+The application is built using Electron.
 
 -   **Main Process:** The main process, written in Node.js (`src/main.js`), is responsible for all interactions with the Ollama API. It handles creating the application window and all backend logic, such as connecting to the Ollama instance and sending/receiving messages. This ensures that Node.js-specific modules and sensitive operations are kept separate from the user interface.
 
