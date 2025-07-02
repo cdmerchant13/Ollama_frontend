@@ -1,6 +1,6 @@
-# Ollama Chat
+# LLove Bug Chat
 
-Ollama Chat is a desktop application for macOS that provides a user-friendly interface for interacting with your local or remote Ollama instances. It allows you to easily connect to an Ollama server, select a model, and have conversations in a clean, modern chat interface.
+LLove Bug Chat is a desktop application for macOS that provides a user-friendly interface for interacting with your local or remote Ollama instances. It allows you to easily connect to an Ollama server, select a model, and have conversations in a clean, modern chat interface.
 
 ## How It Works
 
@@ -18,6 +18,10 @@ The application is built using Electron.
 -   **Model Selection:** Automatically populates a dropdown list with all available models from your Ollama instance.
 -   **Real-time Chat Interface:** A clean and intuitive chat interface for conversing with your selected model.
 -   **Modern UI:** A dark-themed, modern user interface with chat bubbles for a more engaging experience.
+-   **Markdown Rendering:** Replies from the Ollama instance are rendered with Markdown, supporting headings, bold/italic text, and line breaks.
+-   **Idle State Animation:** An animation is displayed while waiting for the model to reply, providing visual feedback.
+-   **Dark Mode Toggle:** Easily switch between light and dark themes for a personalized experience.
+-   **System Prompt Customization:** Configure and save multiple system prompts to guide the model's behavior.
 
 ## Getting Started
 
@@ -50,9 +54,9 @@ To run the application locally or contribute to its development, follow these st
 This project is under active development. Here are some of the features planned for future releases:
 
 -   [ ] **Conversation History:** Save and load previous conversations.
--   [ ] **Multiple Conversations:** Support for multiple, tabbed conversations simultaneously.
+-   ] **Multiple Conversations:** Support for multiple, tabbed conversations simultaneously.
 -   [ ] **Model Management:** Pull and delete models directly from within the application.
--   [ ] **System Prompt Customization:** The ability to set a custom system prompt for the model.
+-   [x] **System Prompt Customization:** The ability to set a custom system prompt for the model.
 -   [ ] **Streaming Responses:** Display responses from the model as they are generated, rather than waiting for the full response.
 -   [ ] **Cross-Platform Support:** Build and release versions for Windows and Linux.
--   [ ] **UI/UX Enhancements:** Further improvements to the user interface and experience, including loading indicators and error handling.
+-   [x] **UI/UX Enhancements:** Further improvements to the user interface and experience, including loading indicators and error handling.

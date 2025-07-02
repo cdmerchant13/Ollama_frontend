@@ -9,7 +9,66 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageInput = document.getElementById('message-input');
     const sendBtn = document.getElementById('send-btn');
     const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const systemPromptSelect = document.getElementById('system-prompt-select');
+    const systemPromptName = document.getElementById('system-prompt-name');
+    const systemPromptText = document.getElementById('system-prompt-text');
+    const savePromptBtn = document.getElementById('save-prompt-btn');
+    const deletePromptBtn = document.getElementById('delete-prompt-btn');
     const converter = new showdown.Converter();
+
+    let systemPrompts = {};
+
+    function loadSystemPrompts() {
+        const storedPrompts = localStorage.getItem('systemPrompts');
+        if (storedPrompts) {
+            systemPrompts = JSON.parse(storedPrompts);
+            updateSystemPromptSelect();
+        }
+    }
+
+    function updateSystemPromptSelect() {
+        systemPromptSelect.innerHTML = '';
+        for (const name in systemPrompts) {
+            const option = document.createElement('option');
+            option.value = name;
+            option.textContent = name;
+            systemPromptSelect.appendChild(option);
+        }
+    }
+
+    function saveSystemPrompt() {
+        const name = systemPromptName.value;
+        const text = systemPromptText.value;
+        if (name && text) {
+            systemPrompts[name] = text;
+            localStorage.setItem('systemPrompts', JSON.stringify(systemPrompts));
+            updateSystemPromptSelect();
+            systemPromptName.value = '';
+            systemPromptText.value = '';
+        }
+    }
+
+    function deleteSystemPrompt() {
+        const selectedPrompt = systemPromptSelect.value;
+        if (selectedPrompt) {
+            delete systemPrompts[selectedPrompt];
+            localStorage.setItem('systemPrompts', JSON.stringify(systemPrompts));
+            updateSystemPromptSelect();
+        }
+    }
+
+    loadSystemPrompts();
+
+    savePromptBtn.addEventListener('click', saveSystemPrompt);
+    deletePromptBtn.addEventListener('click', deleteSystemPrompt);
+
+    systemPromptSelect.addEventListener('change', () => {
+        const selectedPrompt = systemPromptSelect.value;
+        if (selectedPrompt) {
+            systemPromptName.value = selectedPrompt;
+            systemPromptText.value = systemPrompts[selectedPrompt];
+        }
+    });
 
     darkModeToggle.addEventListener('change', () => {
         document.body.classList.toggle('dark-mode');
@@ -41,9 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
             appendMessage('You', message);
             messageInput.value = '';
 
+            const selectedSystemPrompt = systemPromptSelect.value;
+            const systemPrompt = systemPrompts[selectedSystemPrompt] || null;
+
             showIdleAnimation();
 
-            const response = await window.electronAPI.sendMessage({ model: selectedModel, message });
+            const response = await window.electronAPI.sendMessage({ model: selectedModel, message, systemPrompt });
 
             hideIdleAnimation();
 

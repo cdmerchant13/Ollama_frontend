@@ -2,17 +2,20 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>Ollama Chat</title>
+    <title>LLove Bug Chat</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <div class="container">
         <div class="custom-control custom-switch">
             <input type="checkbox" class="custom-control-input" id="dark-mode-toggle">
             <label class="custom-control-label" for="dark-mode-toggle">Dark Mode</label>
         </div>
-        <h1 class="text-center my-4">Ollama Chat</h1>
+        <h1 class="text-center my-4">LLove Bug Chat</h1>
         <div class="form-group">
             <input type="text" class="form-control" id="ollama-url" placeholder="Enter Ollama instance URL">
         </div>
@@ -21,6 +24,38 @@
         </div>
         <button class="btn btn-primary btn-block" id="connect-btn">Connect</button>
         <hr class="my-4">
+
+        <div class="accordion" id="advanced-settings">
+            <div class="card bg-dark text-white">
+                <div class="card-header" id="system-prompt-header">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left text-white" type="button" data-toggle="collapse" data-target="#collapse-system-prompt" aria-expanded="true" aria-controls="collapse-system-prompt">
+                            System Prompt
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="collapse-system-prompt" class="collapse" aria-labelledby="system-prompt-header" data-parent="#advanced-settings">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="system-prompt-select">Select Prompt</label>
+                            <select class="form-control" id="system-prompt-select"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="system-prompt-name">Prompt Name</label>
+                            <input type="text" class="form-control" id="system-prompt-name" placeholder="Enter a name for your prompt">
+                        </div>
+                        <div class="form-group">
+                            <label for="system-prompt-text">Prompt Text</label>
+                            <textarea class="form-control" id="system-prompt-text" rows="3" placeholder="Enter your system prompt here..."></textarea>
+                        </div>
+                        <button class="btn btn-success" id="save-prompt-btn">Save Prompt</button>
+                        <button class="btn btn-danger" id="delete-prompt-btn">Delete Prompt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="chat-container" style="display: none;">
             <div id="chat-history" class="d-flex flex-column"></div>
             <div class="input-group mt-3">

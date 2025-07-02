@@ -1,6 +1,6 @@
 {
-  "name": "ollama_query",
-  "productName": "ollama_query",
+  "name": "llove_bug_chat",
+  "productName": "LLove Bug Chat",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".webpack/main",

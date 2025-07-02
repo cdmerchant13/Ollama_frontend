@@ -65,11 +65,16 @@ ipcMain.handle('connect-to-ollama', async (event, url) => {
   }
 });
 
-ipcMain.handle('send-message', async (event, { model, message }) => {
+ipcMain.handle('send-message', async (event, { model, message, systemPrompt }) => {
   try {
+    const messages = [{ role: 'user', content: message }];
+    if (systemPrompt) {
+      messages.unshift({ role: 'system', content: systemPrompt });
+    }
+
     const response = await ollama.chat({
       model: model,
-      messages: [{ role: 'user', content: message }],
+      messages: messages,
     });
     console.log('Ollama API Response:', response);
     return response.message.content;
